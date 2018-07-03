@@ -14,7 +14,7 @@ import sunfish
 import chess as pychess
 
 from tools import WHITE, BLACK
-from xboard import Unbuffered, sunfish, input
+from xboard import Unbuffered, sunfish
 sys.stdout = Unbuffered(sys.stdout)
 
 def main():
@@ -52,17 +52,15 @@ def main():
                 fen = params[2]
                 pos = tools.parseFEN(fen)
                 color = WHITE if fen.split()[1] == 'w' else BLACK
-	    if params[1] == 'startpos':
-		pos = pychess.Board()
-		params = smove.split(' ')
-		#print(params)
-		if len(params) > 3:
-			for mo in params[3:]:
-				pos.push_uci(mo)
-		#print(pos)
-		fen = pos.fen()
-		pos = tools.parseFEN(fen)
-		color = WHITE if fen.split()[1] == 'w' else BLACK
+            if params[1] == 'startpos':
+                pos = pychess.Board()
+                params = smove.split(' ')
+                if len(params) > 3:
+                    for mo in params[3:]:
+                        pos.push_uci(mo)
+                fen = pos.fen()
+                pos = tools.parseFEN(fen)
+                color = WHITE if fen.split()[1] == 'w' else BLACK
 
         elif smove.startswith('go'):
             #  default options
