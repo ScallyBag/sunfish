@@ -67,7 +67,7 @@ def main():
         elif smove.startswith('go'):
             #  default options
             depth = 1000
-            movetime = 3	# default move time 3 seconds
+            movetime = 3000	# default move time 3 seconds
 
             # parse parameters
             params = smove.split(' ')
