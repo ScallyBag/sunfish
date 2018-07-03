@@ -17,6 +17,9 @@ from tools import WHITE, BLACK
 from xboard import Unbuffered, sunfish
 sys.stdout = Unbuffered(sys.stdout)
 
+lf = "sunfish-log.txt"	##############################################
+log = open(lf, 'w')
+
 def main():
     pos = tools.parseFEN(tools.FEN_INITIAL)
     searcher = sunfish.Searcher()
@@ -33,6 +36,8 @@ def main():
         if stack:
             smove = stack.pop()
         else: smove = input()
+        log.write("%s\n" % smove)
+        log.flush()
 
         if smove == 'quit':
             break
