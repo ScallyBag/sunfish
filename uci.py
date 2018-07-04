@@ -43,6 +43,7 @@ def main():
             break
 
         elif smove == 'uci':
+            print("id name Sunfish")
             print('uciok')
 
         elif smove == 'isready':
