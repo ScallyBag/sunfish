@@ -20,6 +20,11 @@ sys.stdout = Unbuffered(sys.stdout)
 lf = "sunfish-log.txt"	##############################################
 log = open(lf, 'w')
 
+def print2(x):
+    print(x)
+    log.write("< %s\n" % x)
+    log.flush()
+
 def main():
     pos = tools.parseFEN(tools.FEN_INITIAL)
     searcher = sunfish.Searcher()
@@ -29,25 +34,25 @@ def main():
     show_thinking = True
 
     # print name of chess engine
-    print('Sunfish')
+    #print('Sunfish')
 
     stack = []
     while True:
         if stack:
             smove = stack.pop()
         else: smove = input()
-        log.write("%s\n" % smove)
+        log.write("> %s\n" % smove)
         log.flush()
 
         if smove == 'quit':
             break
 
         elif smove == 'uci':
-            print("id name Sunfish")
-            print('uciok')
+            print2("id name Sunfish")
+            print2('uciok')
 
         elif smove == 'isready':
-            print('readyok')
+            print2('readyok')
 
         elif smove == 'ucinewgame':
             stack.append('position fen ' + tools.FEN_INITIAL)
@@ -102,7 +107,7 @@ def main():
                     score = int(round((entry.lower + entry.upper)/2))
                     usedtime = int((time.time() - start) * 1000)
                     moves_str = moves if len(moves) < 15 else ''
-                    print('info depth {} score {} time {} nodes {} {}'.format(searcher.depth, score, usedtime, searcher.nodes, moves_str))
+                    print2('info depth {} score {} time {} nodes {} {}'.format(searcher.depth, score, usedtime, searcher.nodes, moves_str))
 
                 if len(moves) > 5:
                     ponder = moves[1]
@@ -117,13 +122,13 @@ def main():
             m, s = searcher.tp_move.get(pos), entry.lower
             # never resign, Cute Chess does not recognize it anyway
             if False:	#  s == -sunfish.MATE_UPPER:
-                print('resign')
+                print2('resign')
             else:
                 moves = moves.split(' ')
                 if len(moves) > 1:
-                    print('bestmove ' + moves[0] + ' ponder ' + moves[1])
+                    print2('bestmove ' + moves[0] + ' ponder ' + moves[1])
                 else:
-                    print('bestmove ' + moves[0])
+                    print2('bestmove ' + moves[0])
 
         elif smove.startswith('time'):
             our_time = int(smove.split()[1])
