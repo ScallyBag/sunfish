@@ -58,14 +58,22 @@ def main():
             stack.append('position fen ' + tools.FEN_INITIAL)
 
         elif smove.startswith('position'):
-            params = smove.split(' ', 2)
-            if params[1] == 'fen':
-                fen = params[2]
+            params = smove.split(' ')
+            if params[1] == 'fen' and 'moves' not in smove:
+                pos = pychess.Board(' '.join(params[2:8]))
+                fen = pos.fen()
+                pos = tools.parseFEN(fen)
+                color = WHITE if fen.split()[1] == 'w' else BLACK
+            if params[1] == 'fen' and 'moves' in smove:
+                pos = pychess.Board(' '.join(params[2:8]))
+                if len(params) > 9:
+                    for mo in params[9:]:
+                        pos.push_uci(mo)
+                fen = pos.fen()
                 pos = tools.parseFEN(fen)
                 color = WHITE if fen.split()[1] == 'w' else BLACK
             if params[1] == 'startpos':
                 pos = pychess.Board()
-                params = smove.split(' ')
                 if len(params) > 3:
                     for mo in params[3:]:
                         pos.push_uci(mo)
