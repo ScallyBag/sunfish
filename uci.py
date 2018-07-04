@@ -114,8 +114,8 @@ def main():
 
             entry = searcher.tp_score.get((pos, searcher.depth, True))
             m, s = searcher.tp_move.get(pos), entry.lower
-            # We only resign once we are mated.. That's never?
-            if s == -sunfish.MATE_UPPER:
+            # never resign, Cute Chess does not recognize it anyway
+            if False:	#  s == -sunfish.MATE_UPPER:
                 print('resign')
             else:
                 moves = moves.split(' ')
