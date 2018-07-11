@@ -115,7 +115,7 @@ def main():
                     score = int(round((entry.lower + entry.upper)/2))
                     usedtime = int((time.time() - start) * 1000)
                     moves_str = moves if len(moves) < 15 else ''
-                    print2('info depth {} score {} time {} nodes {} {}'.format(searcher.depth, score, usedtime, searcher.nodes, moves_str))
+                    print2('info depth {} score cp {} time {} nodes {} pv {}'.format(searcher.depth, score, usedtime, searcher.nodes, moves_str))
 
                 if len(moves) > 5:
                     ponder = moves[1]
